@@ -1,0 +1,28 @@
+{
+  "name": "test-assignment",
+  "version": "1.0.0",
+  "homepage": "https://github.com/Fakrex/test-assignment",
+  "authors": [
+    "RadikFakhriev <radik115@gmail.com>"
+  ],
+  "description": "SPA, test task for SimbirSoft",
+  "main": "./app/main.js",
+  "moduleType": "amd",
+  "keywords": [
+    "SPA",
+    "SimbirSoft"
+  ],
+  "license": "ISC",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "requirejs": "~2.1.20"
+  }
+}
