@@ -9,7 +9,7 @@
             username: '',
             password: ''
         };
-        
+
         $scope.login = function (credentials) {
             AuthService.login(credentials).then(function (user) {
                 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
@@ -22,12 +22,13 @@
         $scope.logout = function () {
             AuthService.logout().then(function() {
 
-            })
-        }
+            });
+        };
+
     }
 
 
-    authController.$inject = [$scope, $rootScope, 'AUTH_EVENTS', 'AuthService'];
+    authController.$inject = ['$scope', '$rootScope', 'AUTH_EVENTS', 'AuthService'];
 
     return authController;
 
