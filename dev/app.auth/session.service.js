@@ -9,8 +9,8 @@
         };
 
         this.destroy = function () {
-            this.id = null;
-            this.userId = null;
+            delete this.id;
+            delete this.userId;
         };
     }
 

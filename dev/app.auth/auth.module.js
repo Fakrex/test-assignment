@@ -8,7 +8,7 @@ define([
     var authModule = ng.module('app.auth', []);
     authModule.constant('AUTH_EVENTS', authEventsConst);
     authModule.factory('AuthService', authService);
-    authModule.service('SessionService', sessionService);
+    authModule.service('Session', sessionService);
     authModule.controller('AuthController', authController);
 
     return authModule;
