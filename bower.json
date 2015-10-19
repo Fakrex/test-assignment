@@ -25,6 +25,8 @@
     "angular": "~1.4.7",
     "requirejs": "~2.1.20",
     "requirejs-domready": "~2.0.1",
-    "angular-route": "~1.4.7"
+    "text": "requirejs-text#~2.0.14",
+    "angular-ui-router": "~0.2.15",
+    "font-awesome": "~4.4.0"
   }
 }

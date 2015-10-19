@@ -3,10 +3,10 @@
     'app/app.config',
     'app/app.controller',
     'app.auth/auth.module',
-    'angularRoute'
+    'angularUIRoute'
 ], function (ng, routeConfig, appController) {
 
-    var app = ng.module('app', ['ngRoute']);
+    var app = ng.module('app', ['ui.router']);
     app.config(routeConfig);
     app.controller('ApplicationController', appController);
 

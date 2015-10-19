@@ -3,16 +3,28 @@ require.config({
     paths: {
         angular: '../vendor/angular',
         domReady: '../vendor/domReady',
-        angularRoute: '../vendor/angular-route'
+        angularUIRoute: '../vendor/angular-ui-router',
+        text: '../vendor/text'
     },
 
     shim: {
         angular: {
             exports: 'angular'
         },
-        angularRoute: ['angular']
+        angularUIRoute: ['angular']
     },
-    priority: ['angular'],
+    priority: ['angular']
 
-    deps: ['./app/app.bootstrap']
+});
+
+
+require([
+    'require',
+    'angular',
+    'app/app.module'
+], function(require, ng, app) {
+
+    require(['domReady!'], function (document) {
+        ng.bootstrap(document.getElementById('page'), ['app', 'app.auth']);
+    });
 });

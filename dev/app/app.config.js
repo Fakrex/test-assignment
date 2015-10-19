@@ -1,21 +1,30 @@
 define([
+    "text!app.auth/login.html",
+    "text!app.private/private.html"
+], function (loginTemplate, privateTemplate) {
 
-], function () {
+    function config($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.otherwise('/login');
 
-    function config($routeProvider) {
-        $routeProvider.when('/login', {
-            templateUrl: './app.auth/login.html',
-            controller: 'AuthController'
-        })
-        .when('/TaskBoard',{
-            template: '<h1>Task board page</h1>'
-        })
-        .otherwise({
-            redirectTo: '/home'
-        });
+        $stateProvider
+            .state('login', {
+                url: '/login',
+                template: loginTemplate,
+                controller: 'AuthController'
+            })
+            .state('private', {
+                abstract: true,
+                url: '/privateApp',
+                template: privateTemplate
+            })
+            .state('private.taskBoard', {
+                url: '/TaskBoard',
+                template: '<h1>Task board page</h1>'
+            });
+
     }
 
-    config.$inject = ['$routeProvider'];
+    config.$inject = ['$stateProvider', '$urlRouterProvider'];
 
     return config;
 });

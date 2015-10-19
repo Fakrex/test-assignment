@@ -1,14 +1,19 @@
 <div class="login-view">
-    <form id="LoginForm" name="LoginForm"
-          novalidate ng-controller="AuthController" ng-submit="login(credentials)">
+    <form id="LoginForm" name="LoginForm" class="login-view__form login-form"
+         ng-controller="AuthController" ng-submit="login(credentials)">
+        <span class="login-form__message">{{message}}</span>
+        <div class="login-form__field field">
+            <label for="username">Имя пользователя:</label>
+            <input type="text" id="username" class="field__input"
+                   ng-model="credentials.username" required maxlength="16">
+        </div>
+        <div class="login-form__field field">
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" class="field__input"
+                   ng-model="credentials.password" required maxlength="32">
+        </div>
 
-        <label for="username">Имя пользователя:</label>
-        <input type="text" id="username"
-               ng-model="credentials.username">
-        <label for="password">Пароль:</label>
-        <input type="password" id="password"
-               ng-model="credentials.password">
-        <button type="submit">Login</button>
+        <button type="submit" class="login-form__submit button">Войти</button>
 
     </form>
 </div>

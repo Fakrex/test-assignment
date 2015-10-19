@@ -9,27 +9,39 @@
             var usersArr,
                 currentUser;
 
+            // При законченной реализации, наличии backend-a (контроллера для авторизации),
+            // нет необходимости в deferred объекте, достаточно promise от $http
             var deferred = $q.defer();
 
-            $http.get('fakeData/users.json', {data: credentials})
-                .then(function(response) {
-                    usersArr = response.data.users;
-                    usersArr = $filter('filter')(usersArr, credentials);
+            if(credentials.username && credentials.password){
+                $http.get('fakeData/users.json', {data: credentials})
+                    .then(function(response) {
+                        usersArr = response.data.users;
+                        usersArr = $filter('filter')(usersArr, credentials);
 
-                    if (usersArr.length) {
-                        currentUser = usersArr[0];
-                        Session.create(currentUser.sessionId, currentUser.id);
-                        deferred.resolve(currentUser);
-                    } else {
-                        deferred.reject();
-                    }
-                });
+                        if (usersArr.length) {
+                            currentUser = usersArr[0];
+                            Session.create(currentUser.sessionId, currentUser.id);
+                            deferred.resolve(currentUser);
+                        } else {
+                            deferred.reject();
+                        }
+                    });
+            } else {
+                deferred.reject();
+            }
+
 
             return deferred.promise;
         };
 
         authService.logout = function () {
+            var deferred = $q.defer();
 
+            Session.destroy();
+            deferred.resolve();
+
+            return deferred.promise;
         };
 
         authService.isAuthenticated = function () {

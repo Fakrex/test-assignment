@@ -1,0 +1,80 @@
+/*
+  common
+*/
+
+$base-font-size = 13px
+$base-color = #2b64a0
+
+html
+body
+  margin 0
+  padding 0
+  width 100%
+  min-height 100%
+  font-family 'Roboto', sans-serif
+  font-size $base-font-size
+
+#page
+  margin 0
+  padding 0
+  width 100%
+  min-height 100%
+
+.button
+  background-color #ffffff
+  border 1px solid $base-color - 121
+  color $base-color - 121
+  height 30px
+  cursor pointer
+  &:hover
+    background-color $base-color - 121
+    color #ffffff
+
+/*
+  login page
+*/
+
+.login-view
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  margin 0
+  height 100vh
+  min-height 570px
+  display flex
+  flex-wrap wrap
+  flex-direction column
+  align-items center
+  justify-content center
+  background-color $base-color
+
+.login-form
+  display flex
+  flex-direction column
+  align-items center
+  width 270px
+  margin 0 auto
+  padding 45px
+  background-color #ffffff
+  border-radius 3px
+  &__field
+    width 100%
+    & + &
+      margin-top 10px
+  &__submit
+    margin-top 25px
+    width 100%
+    border-radius 3px
+  &__message
+    text-align center
+    padding-bottom 10px
+    &.error
+      color red
+
+.field
+  &__input
+    width 100%
+    border 1px solid #cccccc
+    line-height 22px
+
+/***************************/

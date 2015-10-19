@@ -1,0 +1,36 @@
+{
+  "allTasks": [
+    {
+      "userId": 1,
+      "tasks": [
+        {"title": "Первая задача", "description": "выполнить тестовое задание", "date": "19.10.2015", "state": "in progress", "priority": "high", "time_estimate": "8", "time_elapsed": "8" },
+        {"title": "Вторая задача", "description": "завершить тестовое задание", "date": "20.10.2015", "state": "in progress", "priority": "high", "time_estimate": "4", "time_elapsed": "4" },
+        {"title": "Третья задача", "description": "выполнить ТЗ", "date": "18.10.2015", "priority": "high", "time_estimate": "16", "time_elapsed": "16" }
+      ]
+    },
+    {
+      "userId": 2,
+      "tasks": [
+        {"title": "Task1", "description": "провести рефакторинг существующего кода", "state": "in progress", "date": "19.10.2015", "priority": "high", "time_estimate": "8", "time_elapsed": "8" },
+        {"title": "Task2", "description": "правка багов", "date": "17.10.2015", "state": "in progress", "priority": "high", "time_estimate": "36", "time_elapsed": "36" },
+        {"title": "Task3", "description": "написание тестов", "date": "21.10.2015", "state": "in progress", "priority": "high", "time_estimate": "17", "time_elapsed": "16" }
+      ]
+    },
+    {
+      "userId": 3,
+      "tasks": [
+        {"title": "First task", "description": "согласование требований",  "state": "in progress", "date": "19.10.2015", "priority": "high", "time_estimate": "8", "time_elapsed": "8" },
+        {"title": "Second task", "description": "составление договора", "state": "in progress", "date": "17.10.2015", "priority": "high", "time_estimate": "5", "time_elapsed": "6" },
+        {"title": "Third task", "description": "написание документации", "state": "in progress", "date": "21.10.2015", "priority": "high", "time_estimate": "21", "time_elapsed": "19" }
+      ]
+    },
+    {
+      "userId": 4,
+      "tasks": [
+        {"title": "Задача №1", "description": "Тестирование механизма авторизации", "state": "in progress", "date": "4.10.2015", "priority": "high", "time_estimate": "3", "time_elapsed": "3" },
+        {"title": "Задача №2", "description": "тестирование грида", "state": "in progress", "date": "7.10.2015", "priority": "high", "time_estimate": "5", "time_elapsed": "6" },
+        {"title": "Задача №3", "description": "проверка валидации", "state": "in progress", "date": "11.10.2015", "priority": "high", "time_estimate": "0.5", "time_elapsed": "0.5" }
+      ]
+    }
+  ]
+}

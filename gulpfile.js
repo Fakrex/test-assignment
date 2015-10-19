@@ -17,7 +17,7 @@ gulp.task('stylus', function () {
 
 
 gulp.task('html', function(){
-    gulp.src('./dev/**/*.html')
+    gulp.src('./dev/index.html')
         .pipe(gulp.dest('./build/'))
         .pipe(livereload());
 });
@@ -51,29 +51,39 @@ gulp.task('scripts--dev', function() {
 gulp.task('scripts--build', function() {
     rjs({
         baseUrl: './dev/',
-        out: 'buildTestApp.js',
+        out: 'main.js',
         generateSourceMaps: true,
-        logLevel: 4,
         preserveLicenseComments: false,
         optimize: 'uglify2',
-        include: 'main',
-        mainConfigFile: "./rjsBuildConfig.js"
+        paths: {
+            angular: 'empty:',
+            domReady: 'empty:',
+            angularUIRoute: 'empty:',
+            text: '../vendor/text'
+        },
+        name: 'init'
     })
-    .pipe(gulp.dest('./build/'));
+    .pipe(gulp.dest('./build/'))
+    .pipe(livereload());
+});
+
+gulp.task('fake-data-copy', function () {
+    gulp.src('./dev/**/*.json')
+        .pipe(gulp.dest('./build/'))
+        .pipe(livereload());
 });
 
 gulp.task('watch', function () {
-    var initiallyTasks = ['lr-server', 'bower-files', 'scripts--dev', 'html', 'stylus', 'images'];
+    var initiallyTasks = ['lr-server', 'html', 'stylus'];
 
     gulp.start(initiallyTasks);
 
     gulp.watch('./dev/**/*.styl', ['stylus']);
-    gulp.watch('./dev/**/*.html', ['html']);
-    gulp.watch('./dev/**/*.svg', ['images']);
-    gulp.watch(['./dev/**/*.js', './dev/*.js'], ['scripts--dev']);
+    gulp.watch('./dev/index.html', ['html']);
+    gulp.watch(['./dev/**/.js', './dev/**/*.html', '!./dev/index.html'], ['scripts--build']);
 });
 
 gulp.task('build', function() {
     rimraf('./build');
-    gulp.start(['bower-files', 'html', 'stylus', 'scripts--build', 'images']);
+    gulp.start(['fake-data-copy', 'html', 'stylus', 'scripts--build', 'images']);
 });
