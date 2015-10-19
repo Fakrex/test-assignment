@@ -5,31 +5,33 @@ define([
     function appController ($rootScope, $scope, $state, AuthService, AUTH_EVENTS) {
 
         $scope.currentUser = null;
-        $scope.isAuthenticated = false;
+        $scope.isAuthenticated = AuthService.isAuthenticated;
 
         $scope.setCurrentUser = function (user) {
             $scope.currentUser = user;
-            $scope.isAuthenticated = AuthService.isAuthenticated;
         };
 
         $scope.resetCurrentUser = function () {
             $scope.currentUser = null;
-            $scope.isAuthenticated = false;
         };
 
         $scope.$on(AUTH_EVENTS.loginSuccess, function (e) {
-            $state.go('private.taskBoard');
+            $state.transitionTo('private.tasksBoard');
+        });
+
+        $scope.$on(AUTH_EVENTS.logoutSuccess, function(e) {
+            $state.transitionTo('login');
         });
 
         //Закрытие доступа для не аутентифицированного пользователя
-        //$rootScope.$on('$stateChangeStart',
-        //    function(event, toState, toParams, fromState, fromParams){
-        //        if(!$scope.isAuthenticated && toState.name !== 'login') {
-        //            event.preventDefault();
-        //            $state.go('login');
-        //            $scope.$broadcast(AUTH_EVENTS.notAuthenticated);
-        //        }
-        //    });
+        $rootScope.$on('$stateChangeStart',
+            function(event, toState, toParams, fromState, fromParams) {
+                if (toState.needForAuth && !$scope.isAuthenticated()) {
+                    event.preventDefault();
+                    $state.transitionTo('login');
+                    $scope.$broadcast(AUTH_EVENTS.notAuthenticated);
+                }
+            });
 
     }
 

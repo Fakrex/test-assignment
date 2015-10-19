@@ -1,7 +1,8 @@
 define([
     "text!app.auth/login.html",
-    "text!app.private/private.html"
-], function (loginTemplate, privateTemplate) {
+    "text!app.auth/private.html",
+    "text!app.tasksBoard/tasksBoard.html"
+], function (loginTemplate, privateTemplate, tasksBoardTemplate) {
 
     function config($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/login');
@@ -10,16 +11,21 @@ define([
             .state('login', {
                 url: '/login',
                 template: loginTemplate,
-                controller: 'AuthController'
+                controller: 'AuthController',
+                needForAuth: false
             })
             .state('private', {
                 abstract: true,
                 url: '/privateApp',
-                template: privateTemplate
+                template: privateTemplate,
+                controller: 'AuthController',
+                needForAuth: true
             })
-            .state('private.taskBoard', {
-                url: '/TaskBoard',
-                template: '<h1>Task board page</h1>'
+            .state('private.tasksBoard', {
+                url: '/TasksBoard',
+                template: tasksBoardTemplate,
+                controller: 'TasksBoardController',
+                needForAuth: true
             });
 
     }

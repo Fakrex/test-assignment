@@ -393,12 +393,15 @@ define('text',['module'], function (module) {
 
 define('text!app.auth/login.html',[],function () { return '<div class="login-view">\r\n    <form id="LoginForm" name="LoginForm" class="login-view__form login-form"\r\n         ng-controller="AuthController" ng-submit="login(credentials)">\r\n        <span class="login-form__message">{{message}}</span>\r\n        <div class="login-form__field field">\r\n            <label for="username">Имя пользователя:</label>\r\n            <input type="text" id="username" class="field__input"\r\n                   ng-model="credentials.username" required maxlength="16">\r\n        </div>\r\n        <div class="login-form__field field">\r\n            <label for="password">Пароль:</label>\r\n            <input type="password" id="password" class="field__input"\r\n                   ng-model="credentials.password" required maxlength="32">\r\n        </div>\r\n\r\n        <button type="submit" class="login-form__submit button">Войти</button>\r\n\r\n    </form>\r\n</div>';});
 
-define('text!app.private/private.html',[],function () { return '<div>\r\n    AppBar\r\n    <button> <i class="fa fa-sign-out"></i></button>\r\n</div>\r\n<div ui-view></div>';});
+define('text!app.auth/private.html',[],function () { return '<div class="private-app-view app">\r\n    <div class="app__bar app-bar" ng-controller="AuthController">\r\n        <div class="app-bar__auth-section auth-section">\r\n            <p class="auth-section__current-user">{{currentUser.username}}</p>\r\n            <button class="auth-section__exit-btn button--icon" ng-click="logout()"> <i class="fa fa-sign-out"></i></button>\r\n        </div>\r\n    </div>\r\n    <div ui-view></div>\r\n</div>\r\n';});
+
+define('text!app.tasksBoard/tasksBoard.html',[],function () { return '<div class="tasks-board-view tasks-board" ng-controller="TasksBoardController">\r\n    <h1>Мой список задач</h1>\r\n    <div class="tasks-board__keeper"></div>\r\n</div>';});
 
 define('app/app.config',[
     "text!app.auth/login.html",
-    "text!app.private/private.html"
-], function (loginTemplate, privateTemplate) {
+    "text!app.auth/private.html",
+    "text!app.tasksBoard/tasksBoard.html"
+], function (loginTemplate, privateTemplate, tasksBoardTemplate) {
 
     function config($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/login');
@@ -407,16 +410,21 @@ define('app/app.config',[
             .state('login', {
                 url: '/login',
                 template: loginTemplate,
-                controller: 'AuthController'
+                controller: 'AuthController',
+                needForAuth: false
             })
             .state('private', {
                 abstract: true,
                 url: '/privateApp',
-                template: privateTemplate
+                template: privateTemplate,
+                controller: 'AuthController',
+                needForAuth: true
             })
-            .state('private.taskBoard', {
-                url: '/TaskBoard',
-                template: '<h1>Task board page</h1>'
+            .state('private.tasksBoard', {
+                url: '/TasksBoard',
+                template: tasksBoardTemplate,
+                controller: 'TasksBoardController',
+                needForAuth: true
             });
 
     }
@@ -432,31 +440,33 @@ define('app/app.controller',[
     function appController ($rootScope, $scope, $state, AuthService, AUTH_EVENTS) {
 
         $scope.currentUser = null;
-        $scope.isAuthenticated = false;
+        $scope.isAuthenticated = AuthService.isAuthenticated;
 
         $scope.setCurrentUser = function (user) {
             $scope.currentUser = user;
-            $scope.isAuthenticated = AuthService.isAuthenticated;
         };
 
         $scope.resetCurrentUser = function () {
             $scope.currentUser = null;
-            $scope.isAuthenticated = false;
         };
 
         $scope.$on(AUTH_EVENTS.loginSuccess, function (e) {
-            $state.go('private.taskBoard');
+            $state.transitionTo('private.tasksBoard');
+        });
+
+        $scope.$on(AUTH_EVENTS.logoutSuccess, function(e) {
+            $state.transitionTo('login');
         });
 
         //Закрытие доступа для не аутентифицированного пользователя
-        //$rootScope.$on('$stateChangeStart',
-        //    function(event, toState, toParams, fromState, fromParams){
-        //        if(!$scope.isAuthenticated && toState.name !== 'login') {
-        //            event.preventDefault();
-        //            $state.go('login');
-        //            $scope.$broadcast(AUTH_EVENTS.notAuthenticated);
-        //        }
-        //    });
+        $rootScope.$on('$stateChangeStart',
+            function(event, toState, toParams, fromState, fromParams) {
+                if (toState.needForAuth && !$scope.isAuthenticated()) {
+                    event.preventDefault();
+                    $state.transitionTo('login');
+                    $scope.$broadcast(AUTH_EVENTS.notAuthenticated);
+                }
+            });
 
     }
 
@@ -475,7 +485,7 @@ define('app/app.controller',[
             var usersArr,
                 currentUser;
 
-            // При законченной реализации, наличии backend-a (контроллера для авторизации),
+            // При законченной реализации, наличии backend-a (контроллера для авторизации, возвращающего учётку текущего юзера),
             // нет необходимости в deferred объекте, достаточно promise от $http
             var deferred = $q.defer();
 
@@ -555,8 +565,8 @@ define('app/app.controller',[
 
         $scope.login = function (credentials) {
             AuthService.login(credentials).then(function (user) {
-                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                 $scope.setCurrentUser(user);
+                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
             }, function () {
                 $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
                 $scope.message = AUTH_MESSAGES.loginFailed;
@@ -629,11 +639,34 @@ define('app.auth/auth.module',[
 
     return authModule;
 });
+define('app.tasksBoard/tasksBoard.controller',[
+
+], function () {
+
+    function tasksBoardController($scope) {
+
+    }
+
+    tasksBoardController.$inject = ['$scope'];
+
+    return tasksBoardController;
+});
+define('app.tasksBoard/tasksBoard.module',[
+    'angular',
+    'app.tasksBoard/tasksBoard.controller'
+], function (ng, tasksBoardController) {
+    var taskBoardModule = ng.module('app.auth.tasksBoard', []);
+
+    taskBoardModule.controller('TasksBoardController', tasksBoardController);
+
+    return taskBoardModule;
+});
 ;define('app/app.module',[
     'angular',
     'app/app.config',
     'app/app.controller',
     'app.auth/auth.module',
+    'app.tasksBoard/tasksBoard.module',
     'angularUIRoute'
 ], function (ng, routeConfig, appController) {
 

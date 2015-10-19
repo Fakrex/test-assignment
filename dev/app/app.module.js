@@ -3,6 +3,7 @@
     'app/app.config',
     'app/app.controller',
     'app.auth/auth.module',
+    'app.tasksBoard/tasksBoard.module',
     'angularUIRoute'
 ], function (ng, routeConfig, appController) {
 

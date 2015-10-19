@@ -1,0 +1,9 @@
+<div class="private-app-view app">
+    <div class="app__bar app-bar" ng-controller="AuthController">
+        <div class="app-bar__auth-section auth-section">
+            <p class="auth-section__current-user">{{currentUser.username}}</p>
+            <button class="auth-section__exit-btn button--icon" ng-click="logout()"> <i class="fa fa-sign-out"></i></button>
+        </div>
+    </div>
+    <div ui-view></div>
+</div>
