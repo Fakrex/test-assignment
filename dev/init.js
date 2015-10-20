@@ -3,15 +3,23 @@ require.config({
     paths: {
         angular: '../vendor/angular',
         domReady: '../vendor/domReady',
-        angularUIRoute: '../vendor/angular-ui-router',
-        text: '../vendor/text'
+        angularUiRoute: '../vendor/angular-ui-router',
+        text: '../vendor/text',
+        angularUiGrid: '../vendor/ui-grid/ui-grid.min'
     },
 
     shim: {
         angular: {
             exports: 'angular'
         },
-        angularUIRoute: ['angular']
+        angularUiRoute: {
+            exports: 'angularUiRoute',
+            deps: ['angular']
+        },
+        angularUiGrid: {
+            exports: 'angularUiGrid',
+            deps: ['angular']
+        }
     },
     priority: ['angular']
 

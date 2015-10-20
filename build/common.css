@@ -140,4 +140,14 @@ body {
   font-size: 2em;
 }
 
+.app__content {
+  padding: 2%;
+}
+
 /********/
+
+/* taskBoard */
+
+.grid-wrapper {
+  position: relative;
+}

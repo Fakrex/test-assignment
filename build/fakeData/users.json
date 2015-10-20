@@ -3,6 +3,7 @@
     {"id": 1, "username": "Vasya", "password": "12345", "sessionId": "NRviSpoYm7mdkYB4W2471l"},
     {"id": 2, "username": "Igor", "password": "12345", "sessionId": "j6oAOxCWZh/CD723LGeXlf"},
     {"id": 3, "username": "Daria", "password": "12345", "sessionId": "fSD432vDSlk08uymn321vc"},
-    {"id": 4, "username": "Maria", "password": "12345", "sessionId": "Zh/CD723LGeRviSpoYmqe2"}
+    {"id": 4, "username": "Maria", "password": "12345", "sessionId": "Zh/CD723LGeRviSpoYmqe2"},
+    {"id": 5, "username": "Alex", "password": "0000", "sessionId": "ads234cvxj6oAOxCWZhge2"}
   ]
 }

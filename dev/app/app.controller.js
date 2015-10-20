@@ -19,7 +19,7 @@ define([
             $state.transitionTo('private.tasksBoard');
         });
 
-        $scope.$on(AUTH_EVENTS.logoutSuccess, function(e) {
+        $scope.$on(AUTH_EVENTS.logoutSuccess, function (e) {
             $state.transitionTo('login');
         });
 

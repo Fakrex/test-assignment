@@ -58,7 +58,8 @@ gulp.task('scripts--build', function() {
         paths: {
             angular: 'empty:',
             domReady: 'empty:',
-            angularUIRoute: 'empty:',
+            angularUiRoute: 'empty:',
+            angularUiGrid: 'empty:',
             text: '../vendor/text'
         },
         name: 'init'

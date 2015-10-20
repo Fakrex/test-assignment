@@ -2,14 +2,14 @@
 
 ], function() {
 
-    function authService($http, $q, $filter, Session) {
+    function authService($http, $q, Session) {
         var authService = {};
 
         authService.login = function(credentials) {
             var usersArr,
                 currentUser;
 
-            // При законченной реализации, наличии backend-a (контроллера для авторизации, возвращающего учётку текущего юзера),
+            // При законченной реализации, наличии backend-a (контроллера для авторизации, возвращающего учётку вошедшего юзера),
             // нет необходимости в deferred объекте, достаточно promise от $http
             var deferred = $q.defer();
 
@@ -17,7 +17,11 @@
                 $http.get('fakeData/users.json', {data: credentials})
                     .then(function(response) {
                         usersArr = response.data.users;
-                        usersArr = $filter('filter')(usersArr, credentials);
+
+                        // Эта фильтрации тоже будет ненужной
+                        usersArr = usersArr.filter(function(userItem) {
+                            return (userItem.username === credentials.username && userItem.password === credentials.password);
+                        });
 
                         if (usersArr.length) {
                             currentUser = usersArr[0];
@@ -51,7 +55,7 @@
         return authService;
     }
 
-    authService.$inject = ['$http', '$q', '$filter', 'Session'];
+    authService.$inject = ['$http', '$q', 'Session'];
 
     return authService;
 });

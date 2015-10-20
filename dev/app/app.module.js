@@ -4,10 +4,10 @@
     'app/app.controller',
     'app.auth/auth.module',
     'app.tasksBoard/tasksBoard.module',
-    'angularUIRoute'
+    'angularUiRoute'
 ], function (ng, routeConfig, appController) {
 
-    var app = ng.module('app', ['ui.router']);
+    var app = ng.module('app', ['ui.router', 'app.auth', 'app.tasksBoard']);
     app.config(routeConfig);
     app.controller('ApplicationController', appController);
 
