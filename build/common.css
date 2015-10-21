@@ -63,6 +63,31 @@ body {
   border-color: #398439;
 }
 
+.button--red {
+  background-color: #f00;
+  font-size: 13px;
+  font-style: bold;
+  display: inline-block;
+  line-height: 40px;
+  height: 40px;
+  vertical-align: middle;
+  border: 1px solid #cd2c00;
+  outline: none;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button--red i {
+  color: #fff;
+  margin-right: 5px;
+}
+
+.button--red:hover {
+  background-color: #8b0000;
+  border-color: #741b00;
+}
+
 /*
   login page
 */
@@ -183,3 +208,68 @@ body {
   right: 0;
   top: -50px;
 }
+
+/****************/
+
+/*taskDetail*/
+
+.task-field-set {
+  display: inline-block;
+  position: relative;
+}
+
+.task-field-set__title {
+  font-size: 2em;
+  font-style: bold;
+  display: inline-block;
+}
+
+.task-field-set__notify {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.task-field-set__notify.visible {
+  opacity: 1 !important;
+}
+
+.task-field-set__notify.hidden {
+  opacity: 0 !important;
+}
+
+.task-field-set__notify.success {
+  color: #5cb85c;
+}
+
+.task-field-set__notify.red {
+  color: #f00;
+}
+
+/********/
+
+/*xeditable*/
+
+.xeditable-submit,
+.xeditable-cancel {
+  color: #fff;
+  line-height: 30px;
+  height: 30px;
+}
+
+.editable-input {
+  line-height: 24px;
+  height: 24px;
+}
+
+[datepicker-popup].input-group {
+  float: left;
+}
+
+.form-control[datepicker-popup] + .input-group-btn {
+  display: none !important;
+}
+
+/********/

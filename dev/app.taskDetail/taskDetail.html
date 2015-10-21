@@ -1,7 +1,10 @@
 <div class="task-detail-view task-detail" ng-controller="TaskDetailController" ng-init="getTask(currentUser.id, taskId)">
     {{taskDetailMessage}}
     <div ng-hide="taskDetailMessage" class="task-detail__field-set task-field-set">
-        <h1 editable-text="taskDetail.title">{{taskDetail.title}}</h1>
+        <h1 class="task-field-set__title">
+            {{taskDetail.title}}
+        </h1>
+        <span class="task-field-set__notify">{{taskDetailNotify}}</span>
         <div class="task-field-set__content task-content">
             <table>
                 <tr>
@@ -9,7 +12,10 @@
                         <span>Статус</span>
                     </td>
                     <td>
-                        <span editable-text="taskDetail.state">{{taskDetail.state}}</span>
+                        <span editable-text="taskDetail.state"
+                              onaftersave="saveTask(taskDetail)"
+                              onbeforesave="validateTask(taskDetail)">
+                            {{taskDetail.state}}</span>
                     </td>
                 </tr>
                 <tr>
@@ -17,7 +23,16 @@
                         <span>Дата</span>
                     </td>
                     <td>
-                        <span>{{taskDetail.date}}</span>
+                        <!--<span editable-bsdate="taskDetail.date"-->
+                              <!--e-is-open="opened"-->
+                              <!--e-ng-click="opened = !opened"-->
+                              <!--e-uib-datepicker-popup="dd-MMMM-yyyy"-->
+                              <!--e-init-date="false"-->
+                              <!--onaftersave="saveTask(taskDetail)"-->
+                              <!--onbeforesave="validateTask(taskDetail)">-->
+                            <!--{{(taskDetail.date | date:"dd/MM/yyyy") || 'Не заполнено'}}-->
+                        <!--</span>-->
+                        {{(taskDetail.date | date:"dd/MM/yyyy") || 'Не заполнено'}}
                     </td>
                 </tr>
                 <tr>
@@ -25,7 +40,8 @@
                         <span>Приоритет</span>
                     </td>
                     <td>
-                        <span>{{taskDetail.priority}}</span>
+                        <span>
+                            {{taskDetail.priority}}</span>
                     </td>
                 </tr>
                 <tr>
@@ -33,7 +49,11 @@
                         <span>Запланированное время</span>
                     </td>
                     <td>
-                        <span>{{taskDetail.time_estimate}}</span>
+                        <span editable-text="taskDetail.time_estimate"
+                              onaftersave="saveTask(taskDetail)"
+                              onbeforesave="validateTask(taskDetail)">
+                            {{taskDetail.time_estimate}}
+                        </span>
                     </td>
                 </tr>
                 <tr>
@@ -41,7 +61,10 @@
                         <span>Затраченное время</span>
                     </td>
                     <td>
-                        <span>{{taskDetail.time_elapsed}}</span>
+                        <span editable-text="taskDetail.time_elapsed"
+                              onaftersave="saveTask(taskDetail)"
+                              onbeforesave="validateTask(taskDetail)">
+                            {{taskDetail.time_elapsed}}</span>
                     </td>
                 </tr>
                 <tr>
@@ -49,7 +72,9 @@
                         <span>Описание</span>
                     </td>
                     <td>
-                        <span>{{taskDetail.description}}</span>
+                        <span>
+                            {{taskDetail.description}}
+                        </span>
                     </td>
                 </tr>
             </table>

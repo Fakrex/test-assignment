@@ -6,7 +6,9 @@ require.config({
         angularUiRoute: '../vendor/angular-ui-router',
         text: '../vendor/text',
         angularUiGrid: '../vendor/ui-grid/ui-grid.min',
-        xeditable: '../vendor/xeditable/xeditable'
+        xeditable: '../vendor/xeditable/xeditable',
+        angularBootstrap: '../vendor/angular-bootstrap/ui-bootstrap.min',
+        angularBootstrapTpls: '../vendor/angular-bootstrap/ui-bootstrap-tpls.min'
     },
 
     shim: {
@@ -17,13 +19,21 @@ require.config({
             exports: 'angularUiRoute',
             deps: ['angular']
         },
+        angularBootstrapTpls : {
+            exports: 'angularBootstrapTpls',
+            deps: ['angular']
+        },
+        angularBootstrap: {
+            exports: 'angularBootstrap',
+            deps: ['angular', 'angularBootstrapTpls']
+        },
         angularUiGrid: {
             exports: 'angularUiGrid',
             deps: ['angular']
         },
         xeditable: {
             exports: 'xeditable',
-            deps: ['angular']
+            deps: ['angular', 'angularBootstrap']
         }
     },
     priority: ['angular']

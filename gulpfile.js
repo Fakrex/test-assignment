@@ -58,6 +58,8 @@ gulp.task('scripts--build', function() {
         paths: {
             angular: 'empty:',
             domReady: 'empty:',
+            angularBootstrap: 'empty:',
+            angularBootstrapTpls: 'empty:',
             angularUiRoute: 'empty:',
             angularUiGrid: 'empty:',
             xeditable: 'empty:',

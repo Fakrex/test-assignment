@@ -3,13 +3,16 @@ define([
     'app.taskDetail/taskDetail.controller',
     'app.taskDetail/taskDetail.service',
     'app.taskDetail/taskDetailMessages.constant',
-    'xeditable'
-], function (ng, taskDetailController, taskDetailService, taskDetailMessagesConst) {
-    var taskDetailModule = ng.module('app.taskDetail', ['xeditable']);
+    'app.taskDetail/taskDetailNotify.constant',
+    'xeditable.config/xeditable.custom',
+    'xeditable',
+    'angularBootstrapTpls',
+    'angularBootstrap'
+], function (ng, taskDetailController, taskDetailService, taskDetailMessagesConst, taskDetailNotifyConst, xeditableConfig) {
+    var taskDetailModule = ng.module('app.taskDetail', ['xeditable', 'ui.bootstrap', 'ui.bootstrap.tpls']);
 
-    taskDetailModule.run(function(editableOptions) {
-        editableOptions.theme = 'default';
-    });
+    taskDetailModule.run(xeditableConfig);
+    taskDetailModule.constant('TASK_DETAIL_NOTIFY', taskDetailNotifyConst);
     taskDetailModule.constant('TASK_DETAIL_MESSAGE', taskDetailMessagesConst);
     taskDetailModule.controller('TaskDetailController', taskDetailController);
     taskDetailModule.factory('TaskDetailService', taskDetailService);
