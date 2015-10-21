@@ -22,18 +22,38 @@ body
   min-height 100%
 
 .button
-  background-color #ffffff
-  border 1px solid $base-color - 121
-  color $base-color - 121
-  height 30px
-  cursor pointer
-  &:hover
-    background-color $base-color - 121
-    color #ffffff
+  &--light
+    background-color #ffffff
+    border 1px solid $base-color - 121
+    color $base-color - 121
+    height 30px
+    cursor pointer
+    &:hover
+      background-color $base-color - 121
+      color #ffffff
   &--icon
     background-color transparent
     border none
     outline none
+  &--green
+    background-color #5cb85c
+    font-size $base-font-size
+    font-style bold
+    display inline-block
+    line-height 40px
+    height 40px
+    vertical-align middle
+    border 1px solid #4cae4c
+    outline none
+    color #ffffff
+    border-radius 4px
+    cursor pointer
+    & i
+      color #ffffff
+      margin-right 5px
+    &:hover
+      background-color #47a447
+      border-color #398439
 
 /*
   login page
@@ -80,6 +100,7 @@ body
     width 100%
     border 1px solid #cccccc
     line-height 22px
+    border-radius 3px
 
 /***************************/
 
@@ -129,3 +150,7 @@ body
 
 .grid-wrapper
   position relative
+  &__actions
+    position absolute
+    right 0
+    top -50px

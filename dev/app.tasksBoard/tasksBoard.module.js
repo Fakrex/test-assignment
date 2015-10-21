@@ -3,13 +3,15 @@ define([
     'app.tasksBoard/tasksBoard.controller',
     'app.tasksBoard/tasksBoard.service',
     'app.tasksBoard/tasksBoardMessages.constant',
+    'app.tasksBoard/tasksBoard.gridColumns.config.constant',
     'angularUiGrid'
-], function (ng, tasksBoardController, tasksBoardService, tasksBoardMessagesConst) {
-    var taskBoardModule = ng.module('app.tasksBoard', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav' ]);
+], function (ng, tasksBoardController, tasksBoardService, tasksBoardMessagesConst, gridColumnsConfigConst) {
+    var tasksBoardModule = ng.module('app.tasksBoard', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav' ]);
 
-    taskBoardModule.constant('TASKS_BOARD_MESSAGES', tasksBoardMessagesConst);
-    taskBoardModule.controller('TasksBoardController', tasksBoardController);
-    taskBoardModule.factory('TasksBoardService', tasksBoardService);
+    tasksBoardModule.constant('GRID_COLUMNS_CONFIG', gridColumnsConfigConst);
+    tasksBoardModule.constant('TASKS_BOARD_MESSAGES', tasksBoardMessagesConst);
+    tasksBoardModule.controller('TasksBoardController', tasksBoardController);
+    tasksBoardModule.factory('TasksBoardService', tasksBoardService);
 
-    return taskBoardModule;
+    return tasksBoardModule;
 });

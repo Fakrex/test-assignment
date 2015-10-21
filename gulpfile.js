@@ -60,6 +60,7 @@ gulp.task('scripts--build', function() {
             domReady: 'empty:',
             angularUiRoute: 'empty:',
             angularUiGrid: 'empty:',
+            xeditable: 'empty:',
             text: '../vendor/text'
         },
         name: 'init'

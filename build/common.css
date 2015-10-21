@@ -19,7 +19,7 @@ body {
   min-height: 100%;
 }
 
-.button {
+.button--light {
   background-color: #fff;
   border: 1px solid #000027;
   color: #000027;
@@ -27,7 +27,7 @@ body {
   cursor: pointer;
 }
 
-.button:hover {
+.button--light:hover {
   background-color: #000027;
   color: #fff;
 }
@@ -36,6 +36,31 @@ body {
   background-color: transparent;
   border: none;
   outline: none;
+}
+
+.button--green {
+  background-color: #5cb85c;
+  font-size: 13px;
+  font-style: bold;
+  display: inline-block;
+  line-height: 40px;
+  height: 40px;
+  vertical-align: middle;
+  border: 1px solid #4cae4c;
+  outline: none;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button--green i {
+  color: #fff;
+  margin-right: 5px;
+}
+
+.button--green:hover {
+  background-color: #47a447;
+  border-color: #398439;
 }
 
 /*
@@ -94,6 +119,7 @@ body {
   width: 100%;
   border: 1px solid #ccc;
   line-height: 22px;
+  border-radius: 3px;
 }
 
 /***************************/
@@ -150,4 +176,10 @@ body {
 
 .grid-wrapper {
   position: relative;
+}
+
+.grid-wrapper__actions {
+  position: absolute;
+  right: 0;
+  top: -50px;
 }

@@ -1,0 +1,59 @@
+<div class="task-detail-view task-detail" ng-controller="TaskDetailController" ng-init="getTask(currentUser.id, taskId)">
+    {{taskDetailMessage}}
+    <div ng-hide="taskDetailMessage" class="task-detail__field-set task-field-set">
+        <h1 editable-text="taskDetail.title">{{taskDetail.title}}</h1>
+        <div class="task-field-set__content task-content">
+            <table>
+                <tr>
+                    <td>
+                        <span>Статус</span>
+                    </td>
+                    <td>
+                        <span editable-text="taskDetail.state">{{taskDetail.state}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Дата</span>
+                    </td>
+                    <td>
+                        <span>{{taskDetail.date}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Приоритет</span>
+                    </td>
+                    <td>
+                        <span>{{taskDetail.priority}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Запланированное время</span>
+                    </td>
+                    <td>
+                        <span>{{taskDetail.time_estimate}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Затраченное время</span>
+                    </td>
+                    <td>
+                        <span>{{taskDetail.time_elapsed}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Описание</span>
+                    </td>
+                    <td>
+                        <span>{{taskDetail.description}}</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>

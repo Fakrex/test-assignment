@@ -5,7 +5,8 @@ require.config({
         domReady: '../vendor/domReady',
         angularUiRoute: '../vendor/angular-ui-router',
         text: '../vendor/text',
-        angularUiGrid: '../vendor/ui-grid/ui-grid.min'
+        angularUiGrid: '../vendor/ui-grid/ui-grid.min',
+        xeditable: '../vendor/xeditable/xeditable'
     },
 
     shim: {
@@ -18,6 +19,10 @@ require.config({
         },
         angularUiGrid: {
             exports: 'angularUiGrid',
+            deps: ['angular']
+        },
+        xeditable: {
+            exports: 'xeditable',
             deps: ['angular']
         }
     },

@@ -2,10 +2,13 @@
     <h1>Мой список задач</h1>
     <div class="tasks-board__keeper tasks-list">
         <span class="tasks-list__messages">{{tasksBoardMessage}}</span>
-        <div class="tasks-list__grid-wrapper grid-wrapper" ng-show="currentUserTasksList.length">
+        <div class="tasks-list__grid-wrapper grid-wrapper" ng-show="gridOptions.data.length">
             <div class="grid-wrapper__actions task-action">
-                <button class="task-action__filter-list"></button>
-                <button class="task-action__details"></button>
+                <button class="task-action__filter-list button--green" ng-click="toggleFiltering()">
+                    <i class="fa fa-filter"></i>
+                    <span ng-hide="gridOptions.enableFiltering">Использовать фильтры</span>
+                    <span ng-show="gridOptions.enableFiltering">Убрать фильтры</span>
+                </button>
             </div>
             <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav class="tasks-list__grid"></div>
         </div>

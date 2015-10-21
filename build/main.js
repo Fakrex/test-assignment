@@ -391,17 +391,20 @@ define('text',['module'], function (module) {
     return text;
 });
 
-define('text!app.auth/login.html',[],function () { return '<div class="login-view">\r\n    <form id="LoginForm" name="LoginForm" class="login-view__form login-form"\r\n         ng-controller="AuthController" ng-submit="login(credentials)">\r\n        <span class="login-form__message">{{message}}</span>\r\n        <div class="login-form__field field">\r\n            <label for="username">Имя пользователя:</label>\r\n            <input type="text" id="username" class="field__input"\r\n                   ng-model="credentials.username" required maxlength="16">\r\n        </div>\r\n        <div class="login-form__field field">\r\n            <label for="password">Пароль:</label>\r\n            <input type="password" id="password" class="field__input"\r\n                   ng-model="credentials.password" required maxlength="32">\r\n        </div>\r\n\r\n        <button type="submit" class="login-form__submit button">Войти</button>\r\n\r\n    </form>\r\n</div>';});
+define('text!app.auth/login.html',[],function () { return '<div class="login-view">\r\n    <form id="LoginForm" name="LoginForm" class="login-view__form login-form"\r\n         ng-controller="AuthController" ng-submit="login(credentials)">\r\n        <span class="login-form__message">{{message}}</span>\r\n        <div class="login-form__field field">\r\n            <label for="username">Имя пользователя:</label>\r\n            <input type="text" id="username" class="field__input"\r\n                   ng-model="credentials.username" required maxlength="16">\r\n        </div>\r\n        <div class="login-form__field field">\r\n            <label for="password">Пароль:</label>\r\n            <input type="password" id="password" class="field__input"\r\n                   ng-model="credentials.password" required maxlength="32">\r\n        </div>\r\n\r\n        <button type="submit" class="login-form__submit button--light">Войти</button>\r\n\r\n    </form>\r\n</div>';});
 
 define('text!app.auth/private.html',[],function () { return '<div class="private-app-view app">\r\n    <div class="app__bar app-bar" ng-controller="AuthController">\r\n        <div class="app-bar__auth-section auth-section">\r\n            <p class="auth-section__current-user">{{currentUser.username}}</p>\r\n            <button class="auth-section__exit-btn button--icon" ng-click="logout()"> <i class="fa fa-sign-out"></i></button>\r\n        </div>\r\n    </div>\r\n    <div ui-view class="app__content"></div>\r\n</div>\r\n';});
 
-define('text!app.tasksBoard/tasksBoard.html',[],function () { return '<div class="tasks-board-view tasks-board" ng-controller="TasksBoardController" ng-init="getCurrentUserTasks(currentUser.id)">\r\n    <h1>Мой список задач</h1>\r\n    <div class="tasks-board__keeper tasks-list">\r\n        <span class="tasks-list__messages">{{tasksBoardMessage}}</span>\r\n        <div class="tasks-list__grid-wrapper grid-wrapper" ng-show="currentUserTasksList.length">\r\n            <div class="grid-wrapper__actions task-action">\r\n                <button class="task-action__filter-list"></button>\r\n                <button class="task-action__details"></button>\r\n            </div>\r\n            <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav class="tasks-list__grid"></div>\r\n        </div>\r\n    </div>\r\n</div>';});
+define('text!app.tasksBoard/tasksBoard.html',[],function () { return '<div class="tasks-board-view tasks-board" ng-controller="TasksBoardController" ng-init="getCurrentUserTasks(currentUser.id)">\r\n    <h1>Мой список задач</h1>\r\n    <div class="tasks-board__keeper tasks-list">\r\n        <span class="tasks-list__messages">{{tasksBoardMessage}}</span>\r\n        <div class="tasks-list__grid-wrapper grid-wrapper" ng-show="gridOptions.data.length">\r\n            <div class="grid-wrapper__actions task-action">\r\n                <button class="task-action__filter-list button--green" ng-click="toggleFiltering()">\r\n                    <i class="fa fa-filter"></i>\r\n                    <span ng-hide="gridOptions.enableFiltering">Использовать фильтры</span>\r\n                    <span ng-show="gridOptions.enableFiltering">Убрать фильтры</span>\r\n                </button>\r\n            </div>\r\n            <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav class="tasks-list__grid"></div>\r\n        </div>\r\n    </div>\r\n</div>';});
+
+define('text!app.taskDetail/taskDetail.html',[],function () { return '<div class="task-detail-view task-detail" ng-controller="TaskDetailController" ng-init="getTask(currentUser.id, taskId)">\r\n    {{taskDetailMessage}}\r\n    <div ng-hide="taskDetailMessage" class="task-detail__field-set task-field-set">\r\n        <h1 editable-text="taskDetail.title">{{taskDetail.title}}</h1>\r\n        <div class="task-field-set__content task-content">\r\n            <table>\r\n                <tr>\r\n                    <td>\r\n                        <span>Статус</span>\r\n                    </td>\r\n                    <td>\r\n                        <span editable-text="taskDetail.state">{{taskDetail.state}}</span>\r\n                    </td>\r\n                </tr>\r\n                <tr>\r\n                    <td>\r\n                        <span>Дата</span>\r\n                    </td>\r\n                    <td>\r\n                        <span>{{taskDetail.date}}</span>\r\n                    </td>\r\n                </tr>\r\n                <tr>\r\n                    <td>\r\n                        <span>Приоритет</span>\r\n                    </td>\r\n                    <td>\r\n                        <span>{{taskDetail.priority}}</span>\r\n                    </td>\r\n                </tr>\r\n                <tr>\r\n                    <td>\r\n                        <span>Запланированное время</span>\r\n                    </td>\r\n                    <td>\r\n                        <span>{{taskDetail.time_estimate}}</span>\r\n                    </td>\r\n                </tr>\r\n                <tr>\r\n                    <td>\r\n                        <span>Затраченное время</span>\r\n                    </td>\r\n                    <td>\r\n                        <span>{{taskDetail.time_elapsed}}</span>\r\n                    </td>\r\n                </tr>\r\n                <tr>\r\n                    <td>\r\n                        <span>Описание</span>\r\n                    </td>\r\n                    <td>\r\n                        <span>{{taskDetail.description}}</span>\r\n                    </td>\r\n                </tr>\r\n            </table>\r\n        </div>\r\n    </div>\r\n\r\n</div>';});
 
 define('app/app.config',[
     "text!app.auth/login.html",
     "text!app.auth/private.html",
-    "text!app.tasksBoard/tasksBoard.html"
-], function (loginTemplate, privateTemplate, tasksBoardTemplate) {
+    "text!app.tasksBoard/tasksBoard.html",
+    "text!app.taskDetail/taskDetail.html"
+], function (loginTemplate, privateTemplate, tasksBoardTemplate, taskDetailTemplate) {
 
     function config($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/login');
@@ -420,12 +423,18 @@ define('app/app.config',[
                 controller: 'AuthController',
                 needForAuth: true
             })
-            .state('private.tasksBoard', {
-                url: '/TasksBoard',
-                template: tasksBoardTemplate,
-                controller: 'TasksBoardController',
-                needForAuth: true
-            });
+                .state('private.tasksBoard', {
+                    url: '/TasksBoard',
+                    template: tasksBoardTemplate,
+                    controller: 'TasksBoardController',
+                    needForAuth: true
+                })
+                .state('private.taskDetail', {
+                    url: '/taskDetail/:taskId',
+                    template: taskDetailTemplate,
+                    controller: 'TaskDetailController',
+                    needForAuth: true
+                });
 
     }
 
@@ -647,19 +656,18 @@ define('app.tasksBoard/tasksBoard.controller',[
 
 ], function () {
 
-    function tasksBoardController($scope, TasksBoardService, TASKS_BOARD_MESSAGES) {
+    function tasksBoardController ($scope, TasksBoardService, TASKS_BOARD_MESSAGES, uiGridConstants, GRID_COLUMNS_CONFIG) {
 
-        $scope.currentUserTasksList = [];
         $scope.tasksBoardMessage = '';
         $scope.gridOptions = {};
 
         $scope.getCurrentUserTasks = function (userId) {
             TasksBoardService.getUserTasks(userId).then(function(tasksList) {
-                $scope.currentUserTasksList = tasksList;
-                $scope.gridOptions.data = tasksList;
 
                 if (!tasksList.length) {
                     $scope.tasksBoardMessage = TASKS_BOARD_MESSAGES.tasksListIsEmpty;
+                } else {
+                    $scope.gridOptions.data = tasksList;
                 }
 
             }, function () {
@@ -671,27 +679,21 @@ define('app.tasksBoard/tasksBoard.controller',[
             $scope.gridApi.rowEdit.setSavePromise( rowEntity, TasksBoardService.updateTask(rowEntity));
         };
 
-
-        $scope.gridOptions.onRegisterApi = function(gridApi){
+        $scope.gridOptions.onRegisterApi = function (gridApi) {
             $scope.gridApi = gridApi;
             gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
         };
+        $scope.gridOptions.enableFiltering = false;
+        $scope.gridOptions.columnDefs = GRID_COLUMNS_CONFIG;
 
-        $scope.gridOptions.columnDefs = [
-                {name: 'id', enableCellEdit: false, visible: false},
-                {name: 'title', displayName: 'Название'},
-                {name: 'description', displayName: 'Описание', visible: false},
-                {name: 'state', displayName: 'Статус' },
-                {name: 'date', displayName: 'Дата'},
-                {name: 'priority', displayName: 'Приоритет'},
-                {name: 'time_estimate', displayName: 'Планируемое время', type: 'number'},
-                {name: 'time_elapsed', displayName: 'Затраченное время', type: 'number'},
-                {name: 'entry_actions', displayName: 'Действия'}
-            ];
+        $scope.toggleFiltering = function () {
+            $scope.gridOptions.enableFiltering = !$scope.gridOptions.enableFiltering;
+            $scope.gridApi.core.notifyDataChange( uiGridConstants.dataChange.COLUMN );
+        };
 
     }
 
-    tasksBoardController.$inject = ['$scope', 'TasksBoardService', 'TASKS_BOARD_MESSAGES'];
+    tasksBoardController.$inject = ['$scope', 'TasksBoardService', 'TASKS_BOARD_MESSAGES', 'uiGridConstants', 'GRID_COLUMNS_CONFIG'];
 
     return tasksBoardController;
 });
@@ -753,20 +755,152 @@ define('app.tasksBoard/tasksBoardMessages.constant',[
 
     return _TASKS_BOARD_MESSAGES;
 });
+define('app.tasksBoard/tasksBoard.gridColumns.config.constant',[
+
+], function () {
+
+    var _GRID_COLUMNS_CONFIG =  [
+        {name: 'id', enableCellEdit: false, visible: false},
+        {name: 'title', displayName: 'Название'},
+        {name: 'description', displayName: 'Описание', visible: false},
+        {name: 'state', displayName: 'Статус' },
+        {name: 'date', displayName: 'Дата'},
+        {name: 'priority', displayName: 'Приоритет'},
+        {name: 'time_estimate', displayName: 'Планируемое время', type: 'number', enableFiltering: false},
+        {name: 'time_elapsed', displayName: 'Затраченное время', type: 'number', enableFiltering: false},
+        {name: 'entry_actions', displayName: 'Действия', enableFiltering: false, cellTemplate: '<a ui-sref="private.taskDetail({taskId: row.entity.id})">Подробнее</a>'}
+    ];
+
+    return _GRID_COLUMNS_CONFIG;
+
+});
 define('app.tasksBoard/tasksBoard.module',[
     'angular',
     'app.tasksBoard/tasksBoard.controller',
     'app.tasksBoard/tasksBoard.service',
     'app.tasksBoard/tasksBoardMessages.constant',
+    'app.tasksBoard/tasksBoard.gridColumns.config.constant',
     'angularUiGrid'
-], function (ng, tasksBoardController, tasksBoardService, tasksBoardMessagesConst) {
-    var taskBoardModule = ng.module('app.tasksBoard', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav' ]);
+], function (ng, tasksBoardController, tasksBoardService, tasksBoardMessagesConst, gridColumnsConfigConst) {
+    var tasksBoardModule = ng.module('app.tasksBoard', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav' ]);
 
-    taskBoardModule.constant('TASKS_BOARD_MESSAGES', tasksBoardMessagesConst);
-    taskBoardModule.controller('TasksBoardController', tasksBoardController);
-    taskBoardModule.factory('TasksBoardService', tasksBoardService);
+    tasksBoardModule.constant('GRID_COLUMNS_CONFIG', gridColumnsConfigConst);
+    tasksBoardModule.constant('TASKS_BOARD_MESSAGES', tasksBoardMessagesConst);
+    tasksBoardModule.controller('TasksBoardController', tasksBoardController);
+    tasksBoardModule.factory('TasksBoardService', tasksBoardService);
 
-    return taskBoardModule;
+    return tasksBoardModule;
+});
+define('app.taskDetail/taskDetail.controller',[
+
+], function () {
+
+    function taskDetailController ($scope, TaskDetailService, $stateParams, TASK_DETAIL_MESSAGE) {
+
+        $scope.taskDetailMessage = '';
+        $scope.taskDetail = {};
+        $scope.taskId = $stateParams.taskId;
+
+        $scope.getTask = function (userId, taskId) {
+            TaskDetailService.getTaskDetail(userId, taskId).then(function (taskDetail) {
+                $scope.taskDetail = taskDetail;
+            }, function () {
+                $scope.taskDetailMessage = TASK_DETAIL_MESSAGE.taskIsNotExist;
+            });
+        };
+
+        $scope.saveTask = function (taskId) {
+
+        };
+    }
+
+    taskDetailController.$inject = ['$scope', 'TaskDetailService', '$stateParams', 'TASK_DETAIL_MESSAGE'];
+
+    return taskDetailController;
+
+});
+define('app.taskDetail/taskDetail.service',[
+
+], function () {
+
+    function taskDetailService ($http, $q) {
+        var taskDetailService = {};
+
+        taskDetailService.getTaskDetail = function (userId, taskId) {
+            var tasksArr = [],
+                userTasksList = [],
+                currentTask,
+                deferred = $q.defer();
+
+            $http.get('fakeData/allTasks.json').then(function (response) {
+                tasksArr = response.data.allTasks;
+
+                userTasksList = tasksArr.filter(function (tasksEntryItem) {
+                    return tasksEntryItem.userId === userId;
+                });
+
+                if (!userTasksList.length) {
+                    deferred.reject();
+                } else {
+                    currentTask = userTasksList[0].tasks.filter(function (taskItem) {
+                        return taskItem.id === parseInt(taskId);
+                    });
+
+                    currentTask.length ? deferred.resolve(currentTask[0]) : deferred.reject();
+                }
+
+            }, function() {
+                deferred.reject();
+            });
+
+            return deferred.promise;
+
+        };
+
+        taskDetailService.updateTaskDetail = function (taskObj) {
+            //    Тут должен быть post/update запрос для обновления задачи
+            var dfd = $q.defer();
+
+            alert('Необходим backend-контроллер для сохранения задач!');
+            dfd.resolve(taskObj);
+
+            return dfd.promise;
+        };
+
+        return taskDetailService;
+    }
+
+    taskDetailService.$inject = ['$http', '$q'];
+
+    return taskDetailService;
+});
+define('app.taskDetail/taskDetailMessages.constant',[
+
+], function () {
+
+    var _TASK_DETAIL_MESSAGE = {
+        taskIsNotExist: 'Нет данных'
+    };
+
+    return _TASK_DETAIL_MESSAGE;
+});
+define('app.taskDetail/taskDetail.module',[
+    'angular',
+    'app.taskDetail/taskDetail.controller',
+    'app.taskDetail/taskDetail.service',
+    'app.taskDetail/taskDetailMessages.constant',
+    'xeditable'
+], function (ng, taskDetailController, taskDetailService, taskDetailMessagesConst) {
+    var taskDetailModule = ng.module('app.taskDetail', ['xeditable']);
+
+    taskDetailModule.run(function(editableOptions) {
+        editableOptions.theme = 'default';
+    });
+    taskDetailModule.constant('TASK_DETAIL_MESSAGE', taskDetailMessagesConst);
+    taskDetailModule.controller('TaskDetailController', taskDetailController);
+    taskDetailModule.factory('TaskDetailService', taskDetailService);
+
+    return taskDetailModule;
 });
 ;define('app/app.module',[
     'angular',
@@ -774,10 +908,11 @@ define('app.tasksBoard/tasksBoard.module',[
     'app/app.controller',
     'app.auth/auth.module',
     'app.tasksBoard/tasksBoard.module',
+    'app.taskDetail/taskDetail.module',
     'angularUiRoute'
 ], function (ng, routeConfig, appController) {
 
-    var app = ng.module('app', ['ui.router', 'app.auth', 'app.tasksBoard']);
+    var app = ng.module('app', ['ui.router', 'app.auth', 'app.tasksBoard', 'app.taskDetail']);
     app.config(routeConfig);
     app.controller('ApplicationController', appController);
 
@@ -791,7 +926,8 @@ require.config({
         domReady: '../vendor/domReady',
         angularUiRoute: '../vendor/angular-ui-router',
         text: '../vendor/text',
-        angularUiGrid: '../vendor/ui-grid/ui-grid.min'
+        angularUiGrid: '../vendor/ui-grid/ui-grid.min',
+        xeditable: '../vendor/xeditable/xeditable'
     },
 
     shim: {
@@ -804,6 +940,10 @@ require.config({
         },
         angularUiGrid: {
             exports: 'angularUiGrid',
+            deps: ['angular']
+        },
+        xeditable: {
+            exports: 'xeditable',
             deps: ['angular']
         }
     },
